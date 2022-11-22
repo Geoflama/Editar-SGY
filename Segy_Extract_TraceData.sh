@@ -5,14 +5,14 @@
 
 # Datos de Entrada
 # --------------------------------------------------------------
-# Archivo SEGY
+# Archivo SEG-Y
 in=test.sgy
 
-# Archivo de Salida
+# Archivo de Salida de texto plano.
 out=Trace.txt
 
-# Numero de traza a extraer
-TraceI=2
+# Numero de la traza a extraer
+Traza=2
 
 # 1. Extraer informacion del Bin Header y realizar calculos
 # -----------------------------------------------------------------------------
@@ -37,7 +37,7 @@ BIC=${BIN[$SF]}
 # 1C. Realizar calculos para saber que bytes hay que extraer
 BT0=$(($NS*$Bytes))			        # Cantidad de Bytes de la traza SIN encabezado.	
 BT=$(($NS*$Bytes+240))	  	  	    # Cantidad de Bytes de la traza	CON encabezado.
-BTI=$(($BT*($TraceI-1)+3600+240)) 	# Numero de byte donde empiezan los datos de la traza a extraer
+BTI=$(($BT*($Traza-1)+3600+240)) 	# Numero de byte donde empiezan los datos de la traza a extraer
 
 # 2. Extraer datos de la traza
 # -----------------------------------------------------------------------------
