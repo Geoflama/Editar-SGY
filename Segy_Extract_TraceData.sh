@@ -30,18 +30,9 @@ echo $Bytes
 
 # Crear indexed array con el codigo de GMT para convertir de Binario a ASCII segun el SFC.
 # El index numero es 0 porque el index empieza a contar de 0.
-# SOLO ESTE EL CODIGO PARA EL 5.
+# SOLO ESTA EL CODIGO PARA EL 5. Ver pagina 7 de Hagelund (2017)
 BIN=(0 4IBM 4INT 2INT 4FIX 1f+b NaN NaN 1INT 0 0 0 0 0 0 0 0)
 BIC=${BIN[$SF]}
-echo $BIC
-# 1= 4-byte IBM Floating Point
-# 2= 4-byte integer
-# 3= 2-byte integer
-# 4= 4-byte fixed-point with gain (obsolete)
-# 5= 4-byte IEEE Floating point             = 1f+b
-# 6 y 7= NO USADOS
-# 8. 1-byte integer
-
 
 # 1C. Realizar calculos para saber que bytes hay que extraer
 BT0=$(($NS*$Bytes))			        # Cantidad de Bytes de la traza SIN encabezado.	
@@ -56,3 +47,7 @@ BTI=$(($BT*($TraceI-1)+3600+240)) 	# Numero de byte donde empiezan los datos de 
 dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 | gmt convert -bi$BIC > $out
 
 #gmt psxy $out -png Test -Wred -Baf -Ra
+
+
+# Referencias
+# Hagelund (2017) https://seg.org/Portals/0/SEG/News%20and%20Resources/Technical%20Standards/seg_y_rev2_0-mar2017.pdf
