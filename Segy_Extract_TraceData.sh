@@ -31,14 +31,14 @@ echo $Bytes
 # Crear indexed array con el codigo de GMT para convertir de Binario a ASCII segun el SFC.
 # El index numero es 0 porque el index empieza a contar de 0.
 # SOLO ESTE EL CODIGO PARA EL 5.
-BIN=(0 0 0 0 0 1f+b 0 0 0 0 0 0 0 0 0 0 0)
+BIN=(0 4IBM 4INT 2INT 4FIX 1f+b NaN NaN 1INT 0 0 0 0 0 0 0 0)
 BIC=${BIN[$SF]}
 echo $BIC
 # 1= 4-byte IBM Floating Point
 # 2= 4-byte integer
 # 3= 2-byte integer
 # 4= 4-byte fixed-point with gain (obsolete)
-# 5= 1f+b: 4-byte IEEE Floating point
+# 5= 4-byte IEEE Floating point             = 1f+b
 # 6 y 7= NO USADOS
 # 8. 1-byte integer
 
