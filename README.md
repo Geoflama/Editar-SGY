@@ -9,7 +9,6 @@ Los scripts NO incluyen el procesamiento de los datos.
 4. Editar el Text Header.
 5. Extraer y convertir datos de navegacion.
 
-
 ## Programas a utilizar
 
 Como introducción se sugiere leer:
@@ -18,12 +17,11 @@ Como introducción se sugiere leer:
 
 ## Lista de Scripts
 
-1. Segy_Extract_TraceData.sh
+1. SEGY_Extract_TraceData.sh
 2. SEGY_Sobreescribir_TextHeader.sh
-3. 
+3. SEGY_Separar.sh
 4. 
 5. 
-
 
 
 ## Mas informacion

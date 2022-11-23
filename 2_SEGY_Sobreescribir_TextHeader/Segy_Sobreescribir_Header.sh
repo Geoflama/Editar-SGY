@@ -7,7 +7,7 @@ out=test.sgy
 
 # Nuevo encabezado (Text Header)
 # Editar archivo NewTextHeader.txt.
-# Solo los primeros 3200 bytes se escribirán (40 filas de 80 caracteres)
+# NOTA: Escribir SOLO 3200 bytes (40 filas de 80 caracteres).
 
 # Sobreescribir (notrunc) solo el comienzo (los 3200 bytes iniciales) del archivo de salida.
 dd conv=notrunc if=NewTextHeader.txt of=$out bs=3200 count=1 conv=notrunc
