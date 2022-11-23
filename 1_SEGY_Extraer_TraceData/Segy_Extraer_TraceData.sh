@@ -1,4 +1,4 @@
-# Extraer solamente los datos de una traza de un archivo SGY
+# Extraer solamente los datos de una traza de un archivo SEG-Y
 # Creado por Federico D. Esteban
 # 2022-11-20
 # Herramientas: dd (unix) y GMT

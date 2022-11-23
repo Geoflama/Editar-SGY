@@ -19,11 +19,14 @@ Como introducción se sugiere leer:
 ## Lista de Scripts
 
 1. Segy_Extract_TraceData.sh
-2. 
-
+2. SEGY_Sobreescribir_TextHeader.sh
+3. 
+4. 
+5. 
 
 
 
 ## Mas informacion
+* Formato SEGY version 1. https://pubs.usgs.gov/of/2001/of01-326/HTML/FILEFORM.HTM
 * Formato SEG-Y: Hagelund (2017) https://seg.org/Portals/0/SEG/News%20and%20Resources/Technical%20Standards/seg_y_rev2_0-mar2017.pdf
 * Explicacion del programa **dd** en Wikipedia: https://es.wikipedia.org/wiki/Dd_(Unix)
