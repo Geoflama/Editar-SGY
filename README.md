@@ -1,21 +1,25 @@
 # Procesamientos simples de SEGY
 
-Conjunto de scripts para realizar procesamientos simples de archivos SEG-Y que incluyen:
+Realizar procesamientos simples de archivos SEG-Y que incluyen:
+Los scripts NO incluyen el procesamiento de los datos.
 
 1. Extracción de los datos de un unica traza.
 2. Separar SEG-Y
 3. Unir SEG-Y
-4. Editar el Text Header
+4. Editar el Text Header.
 5. Extraer y convertir datos de navegacion.
 
 
 ## Programas a utilizar
 
-En los scripts se utiliza el programa **dd**.
+Como introducción se sugiere leer:
+* Formato de archivos SEG-Y
+* Funcionamiento del programa **dd**.
 
 ## Lista de Scripts
 
-Segy_Extract_TraceData.sh
+1. Segy_Extract_TraceData.sh
+2. 
 
 
 
