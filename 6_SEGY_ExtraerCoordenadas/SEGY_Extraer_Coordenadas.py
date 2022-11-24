@@ -3,8 +3,8 @@
 Creado por Sebastian Principi y Federico Esteban
 28-09-2022 
 Herramientas Unix: head, tail, while
-Lee todos los segy de una carpeta y extrae sus coordenadas X e Y de 
-los shotpoints y los guarda en un archivo csv.
+Extrae las coordendas de los shotopoints en segundos de arco 
+y los guarda en un archivo csv como grados decimales.
 """
 
 # Variables a modificar
