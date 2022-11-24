@@ -35,17 +35,17 @@ for file in os.listdir(path):
         with segyio.open(input_, "r+", ignore_geometry=True) as f:
             
             # C. Leer los header de X e Y y los paso de segundos de arco a grados
-            sourceX = f.attributes(segyio.TraceField.SourceX)[:]
-            sourceY = f.attributes(segyio.TraceField.SourceY)[:]
+            sourceX = f.attributes(segyio.TraceField.SourceX)[:]/36000000
+            sourceY = f.attributes(segyio.TraceField.SourceY)[:]/36000000
             
-            # D. Imprimir en la terminal? los valores.
+            # D. Imprimir en la terminal
             print(sourceX)
             print(sourceY)
 
-# ????
+# E Convierto las listas de valores a un dataframe
 df = pd.DataFrame(list(zip(sourceX, sourceY)),
                columns =['X', 'Y'])
 
-# Crear csv ??
+# F Guardo los datos como archivos de texto
 df.to_csv(input_+".csv", index=False,sep=",")  
 df.to_csv(input_+".txt", index=False,sep=",") 
