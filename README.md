@@ -12,15 +12,15 @@ Los scripts NO incluyen el procesamiento de los datos.
 ## Programas a utilizar
 
 Como introducción se sugiere leer:
-* Formato de archivos SEG-Y
+* Formato de archivos SEG-Y. Se asume que tienen el formato original. 
 * Funcionamiento del programa **dd**.
 
 ## Lista de Scripts
 
 1. SEGY_Extract_TraceData.sh
 2. SEGY_Sobreescribir_TextHeader.sh
-3. SEGY_Separar.sh
-4. 
+3. SEGY_Extraer.sh
+4. SEGY_Unir_Batch.sh
 5. 
 
 

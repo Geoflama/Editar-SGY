@@ -1,12 +1,16 @@
 # Unir un conjunto de archivos SEG-Y
 # Creado por Federico D. Esteban
 # 2022-11-23.
+# Herramientas Unix: head, tail, while
 
-# Todos los segy deben tener el MISMO LARGO (en profundidad).
+# Requisitos:
+# 1. Los segy deben tener el mismo formato y Numero de Muestras (o sea la misma profundidad).
+# 2. El orden de la lista define la ubicacion en el SEG-Y de salida.
 
 # Datos de Entrada
 # --------------------------------------------------------------
-# Crear lista de archivos a unir dentro de una carpeta
+# Crear lista de archivos SEG-Y a unir.
+# Lo mas practico es poner todos los archivos dentro de una carpeta y usar:
 ls *.sgy > List
 
 # Archivo de Salida

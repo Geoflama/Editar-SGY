@@ -21,6 +21,7 @@ NS=$(dd if=$in bs=2 count=1 skip=3220 iflag=skip_bytes status=none | gmt convert
 
 # 1B. Extraer Codigo de Data Sample Format (bytes 25-26) 
 SF=$(dd if=$in bs=2 count=1 skip=3224 iflag=skip_bytes status=none | gmt convert -bi1h+b)
+
 # Indexed arrays (lista de bytes para Data Sample Format code según Tabla 2 de SEG-Y_r2.0 Hagelund (2017)
 SFC=(0 4 4 2 4 4 8 3 1 8 4 2 8 0 0 3 1)
 Bytes=${SFC[$SF]}
