@@ -38,20 +38,22 @@ for file in os.listdir(path):
         # C. Abrir el archivo como read write
         with segyio.open(output_, "r+", ignore_geometry=True) as f:
             
-            # Leer los header de X e Y y convertirlo de segundos de arco a grados.
+            # D. Leer los header de X e Y y convertirlo de segundos de arco a grados.
             sourceX = f.attributes(segyio.TraceField.SourceX)[:]/100000
             sourceY = f.attributes(segyio.TraceField.SourceY)[:]/100000
             
+            # E. Imprimir en la terminal
             print(sourceX)
             print(sourceY)
-            
+
+            # F. Loop para convertir datos de navegacion            
             for i in range(0,len(f.header)):
-                # Convierto de lat/lon (epsg 4326) a UTM20s (32720)
+                # H. Convertir de lat/lon (epsg 4326) a UTM20s (32720)
                 transformer = Transformer.from_crs(4326, 32720)
                 points=[(sourceY[i], sourceX[i])]
                 for pt in transformer.itransform(points):'{:.3f} {:.3f}'.format(*pt)
                 
-                #pt es el x y convertido, lo modifico por el original
+                # J. pt es el XY convertido, lo modifico por el original
                 f.header[i][segyio.TraceField.SourceX]=int(pt[0])
                 f.header[i][segyio.TraceField.SourceY]=int(pt[1])
 
