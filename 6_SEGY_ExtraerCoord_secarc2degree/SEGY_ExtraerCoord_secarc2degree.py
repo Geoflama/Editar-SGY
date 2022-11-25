@@ -40,10 +40,9 @@ for file in os.listdir(path):
             print(sourceX)
             print(sourceY)
 
-# E. Convierto las listas de valores a un dataframe
-df = pd.DataFrame(list(zip(sourceX, sourceY)),
-               columns =['X', 'Y'])
+        # E. Convierto las listas de valores a un dataframe
+        df = pd.DataFrame(list(zip(sourceX, sourceY)),columns =['X', 'Y'])
 
-# F. Guardo los datos como archivos de texto
-df.to_csv(input_+".csv", index=False,sep=",")  
-df.to_csv(input_+".txt", index=False,sep=",") 
+        # F. Guardo los datos como archivos de texto
+        df.to_csv(input_+".csv", index=False,sep=",")  
+        df.to_csv(input_+".txt", index=False,sep=",") 
