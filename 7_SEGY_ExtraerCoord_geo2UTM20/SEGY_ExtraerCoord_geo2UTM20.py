@@ -10,7 +10,7 @@ y los guarda en un archivo csv como grados decimales y UTM20S
 # --------------------------------------------------------------
 # Directorio a analizar
 path=r"E:\1.Meteor2009\M78a\M78-3a PS03\segy_unidos\Nueva carpeta"
-
+path=r"/home/federico/Github/Geoflama/SEGY/0_DatosPrueba"
 
 # Inicio Script
 # --------------------------------------------------------------
