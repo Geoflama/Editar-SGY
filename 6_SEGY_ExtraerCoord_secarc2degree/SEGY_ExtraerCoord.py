@@ -41,9 +41,9 @@ for file in os.listdir(path):
             SAC = f.attributes(71)[:]
             # if 0, then s x1, 1
 
-            # Coordinates Units (byte 89-90)
+            # Coordinates Units (byte 89-90) *1 
             CU = f.attributes(89)[:]
-            # 1 : lenm/ft, 2: secarc, 3: deg, 4: DDMMSS
+            # 1 : lenm/ft, 2: secarc, 3: decimal degrees, 4: DDMMSS
 
             # C. Leer los header de X e Y y los paso de segundos de arco a grados
             sourceX = f.attributes(segyio.TraceField.SourceX)[:]/36000000
@@ -63,3 +63,22 @@ for file in os.listdir(path):
 
         # F. Guardo los datos como archivos de texto (uno por cada segy) en un CCSV
         df.to_csv(input_+".csv", index=False,sep=",")
+
+
+    # Referencias
+    """
+    *1: Ver pp. 18 de Hagelund (2017). SEG-Y_r2.0
+    Coordinate units:
+    1 = Length (meters or feet as specified in Binary File Header bytes 3255-3256
+    and in Extended Textual Header if Location Data are included in the file)
+    2 = Seconds of arc (deprecated)
+    3 = Decimal degrees (preferred degree representation)
+    4 = Degrees, minutes, seconds (DMS)
+    """
+        
+    """
+    *2: Ver pp. 18 de Hagelund (2017). SEG-Y_r2.0
+    Scalar = 1, ±10, ±100, ±1000, or ±10,000.
+    If positive (negative), scalar is used as a multiplier (divisor).
+    A value of zero is assumed to be a scalar value of 1.
+    """

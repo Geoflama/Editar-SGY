@@ -2,8 +2,8 @@
 """
 Creado por Sebastian Principi y Federico Esteban
 06-01-2021 
-Extrae las coordendas de los shotpoints en segundos de arco 
-y los guarda en un archivo csv como grados decimales y UTM20S
+Crear SEGY pero con coordenadas en UTM20S. 
+Los nuevos SEGY tienen el sufijo "_UTM20"
 """
 
 # Variables a modificar
