@@ -2,16 +2,17 @@
 """
 Creado por Sebastian Principi y Federico Esteban
 28-09-2022 
-Extrae las coordendas de las trazas y las guarda en un archivo csv unico como 
+Extrae las coordendas de las trazas y las guarda en archivos csv como 
 grados decimales y con los datos del FFID (byte 9 del trace header).
 Bytes 73 y 77 estan en SEGUNDOS DE ARCO.
+GENERA UN CSV POR CADA SEGY
 """
 
 # Variables a modificar
 # --------------------------------------------------------------
 # Directorio a analizar
 #path=r"C:\Users\usuario\Desktop\Nueva carpeta"
-path=r"C:\Users\sebap\Downloads\sgy"
+path=r"/home/federico/Github/Geoflama/SEGY/0_DatosPrueba"
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -23,10 +24,7 @@ import pandas as pd
 # 1. Cambiar al directorio path 
 os.chdir(path)
 
-# 2. Creo un dataframe en blanco con los nombres de las columnas
-df = pd.DataFrame(columns =['#Long', 'Lat', "FFID","Name"])
-
-# 3. Hacer un loop para cada archivo
+# 2. Hacer un loop para cada archivo
 for file in os.listdir(path):
     
     # A. Abir todos los .sgy de la carpeta.
@@ -41,22 +39,16 @@ for file in os.listdir(path):
             sourceX = f.attributes(segyio.TraceField.SourceX)[:]/factor
             sourceY = f.attributes(segyio.TraceField.SourceY)[:]/factor
 
-            # D. Leer datos de FFID (byte 9)
+            # Leer datos de FFID (byte 9)
             ffid = f.attributes(segyio.TraceField.FieldRecord)[:]
-            
-            # E. Creo la columna con el nombre del archivo
-            name=[input_]*len(ffid)
     
-            # F. Imprimir en la terminal
+            # D. Imprimir en la terminal
             print(sourceX)
             print(sourceY)
             print (ffid)
 
-        # G. Convierto las listas de valores a un dataframe auxiliar
-        df_aux = pd.DataFrame(list(zip(sourceX, sourceY, ffid,name)),columns =['#Long', 'Lat', "FFID","Name"])
+        # E. Convierto las listas de valores a un dataframe
+        df = pd.DataFrame(list(zip(sourceX, sourceY, ffid)),columns =['#Long', 'Lat', "FFID"])
         
-        # H. Concateno el dataframe auxiliar con el que contiene los datos de los otros segy
-        df = pd.concat([df,df_aux])
-        
-# F. Guardo los datos como archivos de texto (uno por cada segy) en un CCSV
-df.to_csv(input_+".csv", index=False,sep=",")
+        # F. Guardo los datos como archivos de texto (uno por cada segy) en un CSV
+        df.to_csv(input_+".csv", index=False,sep=",")
