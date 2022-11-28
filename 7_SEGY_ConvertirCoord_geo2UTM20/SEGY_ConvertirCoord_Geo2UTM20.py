@@ -57,3 +57,9 @@ for file in os.listdir(path):
                 f.header[i][segyio.TraceField.SourceX]=int(pt[0])
                 f.header[i][segyio.TraceField.SourceY]=int(pt[1])
 
+# WIP. ES NECESARIO MODIFICAR TAMBIEN OTROS BYTES.
+#   Byte 89 que dice que tipo de coordendas tiene. Reemplazar por "1" : leng
+                #f.header[i][segyio.TraceField.SourceY]=int(pt[1])
+                f.header[i][f.attributes(89)=1
+CU = f.attributes(89)[:]
+
