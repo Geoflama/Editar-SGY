@@ -2,8 +2,7 @@
 """
 Creado por Sebastian Principi y Federico Esteban
 06-01-2021 
-Crear SEGY pero con coordenadas en UTM20S. 
-Los nuevos SEGY tienen el sufijo "_UTM20"
+Editar byte 71 de Segy en UTM20S
 """
 
 # Variables a modificar
@@ -11,7 +10,6 @@ Los nuevos SEGY tienen el sufijo "_UTM20"
 # Directorio a analizar
 path=r"E:\1.Meteor2009\M78a\M78-3a PS03\segy_unidos\Nueva carpeta"
 path=r"/home/federico/Github/Geoflama/SEGY/0_DatosPrueba"
-path=r"E:\Github\Geoflama\SEGY\0_DatosPrueba"
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -50,18 +48,16 @@ for file in os.listdir(path):
             # F. Loop para convertir datos de navegacion            
             for i in range(0,len(f.header)):
                 # H. Convertir de lat/lon (epsg 4326) a UTM20s (32720)
-                transformer = Transformer.from_crs(4326, 32720)
-                points=[(sourceY[i], sourceX[i])]
-                for pt in transformer.itransform(points):'{:.3f} {:.3f}'.format(*pt)
+                #transformer = Transformer.from_crs(4326, 32720)
+                #points=[(sourceY[i], sourceX[i])]
+                #for pt in transformer.itransform(points):'{:.3f} {:.3f}'.format(*pt)
                 
-                # J. pt es el XY convertido, lo modifico por el original. 
-                # Lo multiplico por M para tener precision centimetrica (tambien modifico byte 71, ver K.).
-                f.header[i][segyio.TraceField.SourceX]=int(pt[0]*100)
-                f.header[i][segyio.TraceField.SourceY]=int(pt[1]*100)
+                # J. pt es el XY convertido, lo modifico por el original
+                #f.header[i][segyio.TraceField.SourceX]=int(pt[0])
+                #f.header[i][segyio.TraceField.SourceY]=int(pt[1])
 
-                # K. Escribir -100 en Byte 71 (que signifca que a los valores hay que dividirlos por 100) para obtener las coordenadas.
-                f.header[i][segyio.TraceField.SourceGroupScalar]=-100
-                
-                # L. Escribir 1 (: coordendas planas) en Byte 89.
+                # K. Escribir 1 (: coordendas planas) en Byte 89.
                 f.header[i][segyio.TraceField.CoordinateUnits]=1
                 
+                # K. Escribir 1 en Byte 71 (sin factor).
+                f.header[i][segyio.TraceField.SourceGroupScalar]=1
