@@ -38,12 +38,12 @@ for file in os.listdir(path):
         with segyio.open(output_, "r+", ignore_geometry=True) as f:
             
             # D. Leer los header de X e Y y convertirlo de segundos de arco a grados.
-            sourceX = f.attributes(segyio.TraceField.SourceX)[:]/100000
-            sourceY = f.attributes(segyio.TraceField.SourceY)[:]/100000
+            #sourceX = f.attributes(segyio.TraceField.SourceX)[:]/100000
+            #sourceY = f.attributes(segyio.TraceField.SourceY)[:]/100000
             
             # E. Imprimir en la terminal
-            print(sourceX)
-            print(sourceY)
+            #print(sourceX)
+            #print(sourceY)
 
             # F. Loop para convertir datos de navegacion            
             for i in range(0,len(f.header)):
