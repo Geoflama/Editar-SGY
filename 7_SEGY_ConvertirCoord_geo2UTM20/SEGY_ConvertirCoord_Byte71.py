@@ -17,8 +17,6 @@ path=r"D:\4_Segy_UTM"
 # 0. Importar librerias
 import os
 import segyio
-import shutil
-from pyproj import Transformer
 
 # 1. Cambiar a la carpeta path
 os.chdir(path)
