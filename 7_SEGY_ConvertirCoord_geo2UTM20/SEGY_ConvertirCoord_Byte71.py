@@ -9,8 +9,8 @@ Editar los bytes 71 y 89 de los Segy en UTM20S
 # --------------------------------------------------------------
 # Directorio a analizar
 #path=r"E:\1.Meteor2009\M78a\M78-3a PS03\segy_unidos\Nueva carpeta"
-#path=r"/home/federico/Github/Geoflama/SEGY/0_DatosPrueba"
-path=r"D:\Prueba"
+path=r"D:\4_Segy_UTM"
+#path=r"D:\Prueba"
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -27,6 +27,7 @@ os.chdir(path)
 for file in os.listdir(path):
 
     # A. Abrir todos los *.sgy de la carpeta
+    if file.endswith(".sgy"):
         input_=str(file)
         
         # C. Abrir el archivo como read write
