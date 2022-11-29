@@ -2,7 +2,7 @@
 """
 Creado por Sebastian Principi y Federico Esteban
 06-01-2021 
-Editar byte 71 de Segy en UTM20S
+Editar los bytes 71 y 89 de los Segy en UTM20S
 """
 
 # Variables a modificar
