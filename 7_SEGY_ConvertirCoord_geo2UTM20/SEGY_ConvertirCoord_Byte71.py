@@ -8,8 +8,9 @@ Editar los bytes 71 y 89 de los Segy en UTM20S
 # Variables a modificar
 # --------------------------------------------------------------
 # Directorio a analizar
-path=r"E:\1.Meteor2009\M78a\M78-3a PS03\segy_unidos\Nueva carpeta"
-path=r"/home/federico/Github/Geoflama/SEGY/0_DatosPrueba"
+#path=r"E:\1.Meteor2009\M78a\M78-3a PS03\segy_unidos\Nueva carpeta"
+#path=r"/home/federico/Github/Geoflama/SEGY/0_DatosPrueba"
+path=r"D:\Prueba"
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -26,38 +27,16 @@ os.chdir(path)
 for file in os.listdir(path):
 
     # A. Abrir todos los *.sgy de la carpeta
-    if file.endswith(".sgy") and not file.endswith('_UTM20.sgy'):
         input_=str(file)
-        output_=str(file)[:-4]+'_UTM20.sgy'
-        
-        # B. Crear una copia del archivo a modificar con el prefijo "output_"
-        shutil.copyfile(input_, output_)
-        filename=output_
         
         # C. Abrir el archivo como read write
-        with segyio.open(output_, "r+", ignore_geometry=True) as f:
-            
-            # D. Leer los header de X e Y y convertirlo de segundos de arco a grados.
-            #sourceX = f.attributes(segyio.TraceField.SourceX)[:]/100000
-            #sourceY = f.attributes(segyio.TraceField.SourceY)[:]/100000
-            
-            # E. Imprimir en la terminal
-            #print(sourceX)
-            #print(sourceY)
+        with segyio.open(input_, "r+", ignore_geometry=True) as f:
 
-            # F. Loop para convertir datos de navegacion            
+            # D. Loop para convertir datos de navegacion            
             for i in range(0,len(f.header)):
-                # H. Convertir de lat/lon (epsg 4326) a UTM20s (32720)
-                #transformer = Transformer.from_crs(4326, 32720)
-                #points=[(sourceY[i], sourceX[i])]
-                #for pt in transformer.itransform(points):'{:.3f} {:.3f}'.format(*pt)
                 
-                # J. pt es el XY convertido, lo modifico por el original
-                #f.header[i][segyio.TraceField.SourceX]=int(pt[0])
-                #f.header[i][segyio.TraceField.SourceY]=int(pt[1])
-
-                # K. Escribir 1 (: coordendas planas) en Byte 89.
+                # E. Escribir 1 (: coordendas planas) en Byte 89.
                 f.header[i][segyio.TraceField.CoordinateUnits]=1
                 
-                # K. Escribir 1 en Byte 71 (sin factor).
+                # F. Escribir 1 en Byte 71 (sin factor).
                 f.header[i][segyio.TraceField.SourceGroupScalar]=1
