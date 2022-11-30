@@ -36,25 +36,20 @@ for file in os.listdir(path):
         # B. Abrir el archivo como read write
         with segyio.open(input_, "r+", ignore_geometry=True) as f:
             
-            # C. Leer los header de X e Y y los paso de segundos de arco a grados
+            # C1. Leer los header de X e Y.
             sourceX = f.attributes(segyio.TraceField.SourceX)[:]
             sourceY = f.attributes(segyio.TraceField.SourceY)[:]
 
-            # Leer datos de record (byte 5,9)
-           # ffid = f.attributes(17)[:]
-            
-            # D. Imprimir en la terminal
-#           print(sourceX)
-#           print(sourceY)
-#           print (ffid)
+            # C2. Leer otros bytes
+            # ffid = f.attributes(17)[:]
 
-        # E. Convierto las listas de valores a un dataframe
+        # D. Convierto las listas de valores a un dataframe
         #df = pd.DataFrame(list(zip(sourceX, sourceY, ffid )),columns =['#X', 'Y', "FFID"])
-
-        
         df = pd.DataFrame(list(zip(sourceX, sourceY)),columns =['#X', 'Y'])
         
-        # F. Guardo los datos como archivos de texto (uno por cada segy) en un CSV
+        # E. Agrego indice para numerar los registros.
+        #df['numero'] = np.arange(len(df))                   # Empieza en 0
+        df['numero'] = np.arange(start=1,end=len(df)+1)     # Empieza en 1
 
-        df['numero'] = np.arange(len(df))
+        # F. Guardo los datos como archivos de texto (uno por cada segy) en un CSV
         df.to_csv(input_+".csv", index=False,sep=",")
