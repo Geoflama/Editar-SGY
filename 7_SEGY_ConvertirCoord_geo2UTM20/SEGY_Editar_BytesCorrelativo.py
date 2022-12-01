@@ -6,10 +6,7 @@ Editar los bytes 71 y 89 de los Segy en UTM20S
 """
 
 # Directorio a analizar
-<<<<<<< HEAD
 path=r"D:\M783a\Prueba"
-
-
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -21,11 +18,6 @@ import segyio
 os.chdir(path)
 
 # 2. Aplicar ciclo
-=======
-path=r"D:\M783b\2_UnirSegy_SGY_UTM"
-os.chdir(path)
->>>>>>> 7d215ac674fc7df65f315a4a46f6b544cd12db4d
-
 for file in os.listdir(path):
 
     # A. Abrir todos los *.sgy de la carpeta
@@ -42,5 +34,3 @@ for file in os.listdir(path):
                 f.header[i][segyio.TraceField.FieldRecord]=i+1
                 f.header[i][segyio.TraceField.EnergySourcePoint]=i+1
                 f.header[i][segyio.TraceField.CDP]=i+1
-                
-                
