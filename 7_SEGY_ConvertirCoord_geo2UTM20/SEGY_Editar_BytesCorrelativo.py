@@ -35,8 +35,7 @@ for file in os.listdir(path):
             # D. Loop para convertir datos de navegacion            
             for i in range(0,len(f.header)):
                 
-                # E. Escribir 1 (: coordendas planas) en Byte 89.
-                f.header[i][segyio.TraceField.CoordinateUnits]=1
+                # E. Numerar (desde 1) los bytes 09 (FFID), 17 (SP) y 21 (CDP).
+                #f.header[i][segyio.TraceField.CoordinateUnits]=1
                 
-                # F. Escribir 1 en Byte 71 (sin factor).
-                f.header[i][segyio.TraceField.SourceGroupScalar]=1
+                
