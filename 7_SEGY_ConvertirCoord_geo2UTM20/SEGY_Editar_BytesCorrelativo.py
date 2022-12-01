@@ -6,13 +6,16 @@ Editar los bytes 09, 17 y 21 de los SEG-Y
 """
 
 # Directorio a analizar
-path=r"D:\M783a\Prueba"
+#path=r"D:\M783a\Prueba"
+path=r"D:\M783a\4_Segy_UTM"
+
 
 # Inicio Script
 # --------------------------------------------------------------
 # 0. Importar librerias
 import os
 import segyio
+import numpy as np
 
 # 1. Cambiar a la carpeta path
 os.chdir(path)

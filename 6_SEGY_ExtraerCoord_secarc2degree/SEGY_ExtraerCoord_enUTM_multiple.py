@@ -12,8 +12,8 @@ GENERA UN CSV POR CADA SEGY
 # --------------------------------------------------------------
 # Directorio a analizar
 #path=r"C:\Users\usuario\Desktop\Nueva carpeta"
-#path=r"E:\m783b\2_UnirSegy_SGY_UTM"
-path=r"D:\M783b\2_UnirSegy_SGY_UTM"
+path=r"D:\M783a\4_Segy_UTM"
+#path=r"D:\M783a\Prueba"
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -21,7 +21,7 @@ path=r"D:\M783b\2_UnirSegy_SGY_UTM"
 import os
 import segyio
 import pandas as pd
-import numpy as np
+#import numpy as np
 
 # 1. Cambiar al directorio path 
 os.chdir(path)
@@ -41,15 +41,15 @@ for file in os.listdir(path):
             sourceY = f.attributes(segyio.TraceField.SourceY)[:]
 
             # C2. Leer otros bytes
-            # ffid = f.attributes(17)[:]
+            CDP = f.attributes(21)[:]
 
         # D. Convierto las listas de valores a un dataframe
-        #df = pd.DataFrame(list(zip(sourceX, sourceY, ffid )),columns =['#X', 'Y', "FFID"])
-        df = pd.DataFrame(list(zip(sourceX, sourceY)),columns =['#X', 'Y'])
+        df = pd.DataFrame(list(zip(CDP, sourceX, sourceY )),columns =['#CDP', 'X', 'Y'])
+        #df = pd.DataFrame(list(zip(sourceX, sourceY)),columns =['#X', 'Y'])
         
         # E. Agrego indice para numerar los registros.
-        #df['numero'] = np.arange(len(df))                   # Empieza en 0
-        df['numero'] = np.arange(start=1,end=len(df)+1)     # Empieza en 1
+        #df['numero'] = np.arange(len(df))                  # Empieza en 0
+        #df['numero'] = np.arange(start=1,stop=len(df)+1)     # Empieza en 1
 
         # F. Guardo los datos como archivos de texto (uno por cada segy) en un CSV
         df.to_csv(input_+".csv", index=False,sep=",")
