@@ -6,6 +6,7 @@ Editar los bytes 71 y 89 de los Segy en UTM20S
 """
 
 # Directorio a analizar
+<<<<<<< HEAD
 path=r"D:\M783a\Prueba"
 
 
@@ -20,6 +21,10 @@ import segyio
 os.chdir(path)
 
 # 2. Aplicar ciclo
+=======
+path=r"D:\M783b\2_UnirSegy_SGY_UTM"
+os.chdir(path)
+>>>>>>> 7d215ac674fc7df65f315a4a46f6b544cd12db4d
 
 for file in os.listdir(path):
 
