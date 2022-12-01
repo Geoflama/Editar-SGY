@@ -11,6 +11,7 @@ import os
 
 # Directorio a analizar
 path=r"D:\M783b\2_UnirSegy_SGY_UTM"
+os.chdir(path)
 
 for file in os.listdir(path):
 
