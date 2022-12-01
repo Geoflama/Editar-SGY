@@ -8,10 +8,8 @@ Editar los bytes 71 y 89 de los Segy en UTM20S
 # Variables a modificar
 # --------------------------------------------------------------
 # Directorio a analizar
-#path=r"E:\1.Meteor2009\M78a\M78-3a PS03\segy_unidos\Nueva carpeta"
-#path=r"D:\4_Segy_UTM"
-path=r"D:\M783b\2_UnirSegy_SGY_UTM"
-#path=r"D:\Prueba"
+#path=r"E:\Nueva carpeta"
+path=r"D:\M783a\Prueba"
 
 # Inicio Script
 # --------------------------------------------------------------

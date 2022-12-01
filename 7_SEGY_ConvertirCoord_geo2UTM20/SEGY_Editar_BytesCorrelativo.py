@@ -5,12 +5,21 @@ Creado por Sebastian Principi y Federico Esteban
 Editar los bytes 71 y 89 de los Segy en UTM20S
 """
 
-# Importo las librerias
-import segyio
-import os
-
 # Directorio a analizar
-path=r"D:\M783b\2_UnirSegy_SGY_UTM"
+path=r"D:\M783a\Prueba"
+
+
+
+# Inicio Script
+# --------------------------------------------------------------
+# 0. Importar librerias
+import os
+import segyio
+
+# 1. Cambiar a la carpeta path
+os.chdir(path)
+
+# 2. Aplicar ciclo
 
 for file in os.listdir(path):
 
@@ -18,7 +27,6 @@ for file in os.listdir(path):
     if file.endswith(".sgy"):
         input_=str(file)
 
-        
         # C. Abrir el archivo como read write
         with segyio.open(input_, "r+", ignore_geometry=True) as f:
 
