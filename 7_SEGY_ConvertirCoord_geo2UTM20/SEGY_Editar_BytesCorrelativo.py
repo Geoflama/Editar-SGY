@@ -2,7 +2,7 @@
 """
 Creado por Sebastian Principi y Federico Esteban
 06-01-2021 
-Editar los bytes 71 y 89 de los Segy en UTM20S
+Editar los bytes 09, 17 y 21 de los SEG-Y
 """
 
 # Directorio a analizar
