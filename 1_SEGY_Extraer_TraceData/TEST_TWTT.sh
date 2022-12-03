@@ -8,7 +8,6 @@
 # --------------------------------------------------------------
 # Archivo SEG-Y
 in=../0_DatosPrueba/test.sgy
-#0_DatosPrueba
 
 # Archivo de Salida de texto plano.
 out=Trace.txt
@@ -39,7 +38,6 @@ BT0=$(($NS*$Bytes))			        # Cantidad de Bytes de la traza SIN encabezado.
 BT=$(($NS*$Bytes+240))	  	  	    # Cantidad de Bytes de la traza	CON encabezado.
 BTI=$(($BT*($Traza-1)+3600+240)) 	# Numero de byte donde empiezan los datos de la traza a extraer
 
-
 # 2. Extraer datos de la traza
 # -----------------------------------------------------------------------------
 # A. Con dd se extraen los datos.
@@ -58,25 +56,10 @@ QQ=$(dd if=$in bs=2 count=1 skip=$DELAY iflag=skip_bytes status=none | gmt conve
 echo $QQ 
 
 # WIP. Hay que crear una columna con valores empezando en offset
-seq $NS > TWTT          # Crear lista con NS
+seq $NS > TWT1           # Crear lista con NS 
+seq $NS | awk '{print $1*41}' > TWT2
 #seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
 #seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
 
 paste TWTT $out > QQ.txt
-
-# 4. Prueba. Extraer informacion del archivo
-# -----------------------------------------------------------------------------
-#gmt psxy $out -png Test -Wred -Baf -Ra
-echo Datos segun NS: $NS
-echo Datos segun gmt info:
-gmt info $out
-
-# Referencias
-# Hagelund (2017) https://seg.org/Portals/0/SEG/News%20and%20Resources/Technical%20Standards/seg_y_rev2_0-mar2017.pdf
-
-# Bytes 109-110: Delay recording time — Time in milliseconds between
-# initiation time of energy source and the time when recording
-# of data samples begins. In SEG-Y rev 0 this entry was
-# intended for deep-water work if data recording did not start at
-# zero time.
 
