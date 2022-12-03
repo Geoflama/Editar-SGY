@@ -48,7 +48,7 @@ dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 | gmt convert -bi$BIC > $ou
 # -----------------------------------------------------------------------------
 # D. Extraer Sample Rate (SR) en microsegundos del Bin Header (en bytes 3217-3218)
 SR=$(dd if=$in bs=2 count=1 skip=3216 iflag=skip_bytes status=none | gmt convert -bi1h+b)
-echo SI= $SR
+echo SR= $SR
 
 # Extraer bytes 109-110 (delay recording time)
 DELAY=$(($BT*($Traza-1)+3600+108)) 	# Numero de byte donde esta el SR en el TRACE Header
@@ -57,9 +57,10 @@ echo $QQ
 
 # WIP. Hay que crear una columna con valores empezando en offset
 seq $NS > TWT1           # Crear lista con NS 
-seq $NS | awk '{print $1*41}' > TWT2
+#seq $NS | awk '{print $1*41}' > TWT2
+gmt math -Q TWT1 $SR MUL $QQ SUM = TWT3
 #seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
 #seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
 
-paste TWTT $out > QQ.txt
+#paste TWTT $out > QQ.txt
 
