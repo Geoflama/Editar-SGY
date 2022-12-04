@@ -50,18 +50,33 @@ dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 | gmt convert -bi$BIC > $ou
 SR=$(dd if=$in bs=2 count=1 skip=3216 iflag=skip_bytes status=none | gmt convert -bi1h+b)
 echo SR= $SR
 
-# Extraer bytes 109-110 (delay recording time)
+# Extraer bytes 109-110 (delay recording time) en MILISEGUNDOS
 DELAY=$(($BT*($Traza-1)+3600+108)) 	# Numero de byte donde esta el SR en el TRACE Header
 QQ=$(dd if=$in bs=2 count=1 skip=$DELAY iflag=skip_bytes status=none | gmt convert -bi1h+b)
-echo $QQ 
+#QQ=0
+echo $QQ
+
+# Crear un secuencia de numeros con las profundidas.
+## 1. con seq creo una secuencia de 1 a NS. 
+## 2. con gmt math: 
+#       A. resto 1 parapara que empiece de 0
+#       B. Multiplico por SR.
+#       C. Divido por mil para para de microsegundos a milisegundos.
+#       D. Agregar offset del byte 109
+seq $NS | gmt math -Q STDIN -1 ADD $SR MUL 1000 DIV $QQ ADD = TWTT
+
 
 # WIP. Hay que crear una columna con valores empezando en offset
-seq $NS > TWT1           # Crear lista con NS 
+#seq $NS > TWT1           # Crear lista con NS 
 #seq $NS | awk '{print $1*41}' > TWT2
-gmt math -Q TWT1 $SR MUL 1000 DIV $QQ ADD = TWT3
-seq $NS | gmt math -Q STDIN $SR MUL 1000 DIV $QQ ADD = TWT2
+#gmt math -Q TWT1 $SR MUL 1000 DIV $QQ ADD = TWT3
 #seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
 #seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
 
-#paste TWTT $out > QQ.txt
+# Juntar archivos
+paste $out TWTT > QQ.txt
 
+# Hacer grafico con GMT
+gmt begin Trace png
+    gmt plot QQ.txt -JX5/-10 -W0 -Baf -By+l"TWTT (ms)"
+gmt end 

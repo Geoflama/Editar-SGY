@@ -44,32 +44,43 @@ BTI=$(($BT*($Traza-1)+3600+240)) 	# Numero de byte donde empiezan los datos de l
 # -----------------------------------------------------------------------------
 # A. Con dd se extraen los datos.
 # B. Con GMT convierto del formato binario a ascii.
-dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 | gmt convert -bi$BIC > $out
+dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 | gmt convert -bi$BIC > tmp_$out
 
 # 3. Calcular TWTT (o profundidad) de la traza
 # -----------------------------------------------------------------------------
 # D. Extraer Sample Rate (SR) en microsegundos del Bin Header (en bytes 3217-3218)
 SR=$(dd if=$in bs=2 count=1 skip=3216 iflag=skip_bytes status=none | gmt convert -bi1h+b)
-echo SI= $SR
+echo SampleRate= $SR
 
 # Extraer bytes 109-110 (delay recording time)
 DELAY=$(($BT*($Traza-1)+3600+108)) 	# Numero de byte donde esta el SR en el TRACE Header
-QQ=$(dd if=$in bs=2 count=1 skip=$DELAY iflag=skip_bytes status=none | gmt convert -bi1h+b)
-echo $QQ 
+B109=$(dd if=$in bs=2 count=1 skip=$DELAY iflag=skip_bytes status=none | gmt convert -bi1h+b)
+echo $B109 
 
-# WIP. Hay que crear una columna con valores empezando en offset
-seq $NS > TWTT          # Crear lista con NS
-#seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
-#seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
+# Crear un secuencia de numeros con las profundidades.
+## 1. con seq creo una secuencia de 1 a NS. 
+## 2. con gmt math: 
+#       A. resto 1 para que empiece de 0
+#       B. Multiplico por SR.
+#       C. Divido por mil para para de microsegundos a milisegundos.
+#       D. Agregar offset del byte 109
+seq 0 $(($NS-1)) | gmt math -Q STDIN $SR MUL 1000 DIV $B109 ADD = tmp_TWTT
 
-paste TWTT $out > QQ.txt
+# Juntar archivos
+paste tmp_$out tmp_TWTT > $out
+
+rm tmp_*
 
 # 4. Prueba. Extraer informacion del archivo
 # -----------------------------------------------------------------------------
-#gmt psxy $out -png Test -Wred -Baf -Ra
 echo Datos segun NS: $NS
 echo Datos segun gmt info:
 gmt info $out
+
+# Hacer grafico con GMT
+gmt begin Trace png
+    gmt plot Trace.txt -JX5/-10 -W0 -Baf -By+l"TWTT (ms)"
+gmt end 
 
 # Referencias
 # Hagelund (2017) https://seg.org/Portals/0/SEG/News%20and%20Resources/Technical%20Standards/seg_y_rev2_0-mar2017.pdf
@@ -79,4 +90,3 @@ gmt info $out
 # of data samples begins. In SEG-Y rev 0 this entry was
 # intended for deep-water work if data recording did not start at
 # zero time.
-
