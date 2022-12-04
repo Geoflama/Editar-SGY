@@ -58,7 +58,8 @@ echo $QQ
 # WIP. Hay que crear una columna con valores empezando en offset
 seq $NS > TWT1           # Crear lista con NS 
 #seq $NS | awk '{print $1*41}' > TWT2
-gmt math -Q TWT1 $SR MUL $QQ SUM = TWT3
+gmt math -Q TWT1 $SR MUL 1000 DIV $QQ ADD = TWT3
+seq $NS | gmt math -Q STDIN $SR MUL 1000 DIV $QQ ADD = TWT2
 #seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
 #seq 0 $NS $(($NS*$SR*1000)) > TWTT.txt
 
