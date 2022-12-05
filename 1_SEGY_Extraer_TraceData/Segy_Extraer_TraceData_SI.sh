@@ -58,12 +58,11 @@ B109=$(dd if=$in bs=2 count=1 skip=$DELAY iflag=skip_bytes status=none | gmt con
 echo $B109 
 
 # Crear un secuencia de numeros con las profundidades.
-## 1. con seq creo una secuencia de 1 a NS. 
+## 1. con seq creo una secuencia de 1 a NS (restandole 1 para que empiece en 0).
 ## 2. con gmt math: 
-#       A. resto 1 para que empiece de 0
-#       B. Multiplico por SR.
-#       C. Divido por mil para para de microsegundos a milisegundos.
-#       D. Agregar offset del byte 109
+#     A. $SR MUL: Multiplico por SR.
+#     B. 1000 DIV: Divido por mil para para de microsegundos a milisegundos.
+#     C. $B109 ADD: Sumar offset del byte 109
 seq 0 $(($NS-1)) | gmt math -Q STDIN $SR MUL 1000 DIV $B109 ADD = tmp_TWTT
 
 # Juntar archivos
