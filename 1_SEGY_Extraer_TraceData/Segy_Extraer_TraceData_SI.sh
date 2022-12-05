@@ -8,13 +8,14 @@
 # --------------------------------------------------------------
 # Archivo SEG-Y
 in=../0_DatosPrueba/test.sgy
+in=../0_DatosPrueba/YCM-02.sgy
 #0_DatosPrueba
 
 # Archivo de Salida de texto plano.
 out=Trace.txt
 
 # Numero de la traza a extraer
-Traza=2
+Traza=814
 
 # 1. Extraer informacion del Bin Header y realizar calculos
 # -----------------------------------------------------------------------------
@@ -45,6 +46,7 @@ BTI=$(($BT*($Traza-1)+3600+240)) 	# Numero de byte donde empiezan los datos de l
 # A. Con dd se extraen los datos.
 # B. Con GMT convierto del formato binario a ascii.
 dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 | gmt convert -bi$BIC > tmp_$out
+dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 > trace.b
 
 # 3. Calcular TWTT (o profundidad) de la traza
 # -----------------------------------------------------------------------------
@@ -61,7 +63,7 @@ echo $B109
 ## 1. con seq creo una secuencia de 1 a NS (restandole 1 para que empiece en 0).
 ## 2. con gmt math: 
 #     A. $SR MUL: Multiplico por SR.
-#     B. 1000 DIV: Divido por mil para para de microsegundos a milisegundos.
+#     B. 1000 DIV: Divido por mil para pasar de microsegundos a milisegundos.
 #     C. $B109 ADD: Sumar offset del byte 109
 seq 0 $(($NS-1)) | gmt math -Q STDIN $SR MUL 1000 DIV $B109 ADD = tmp_TWTT
 
