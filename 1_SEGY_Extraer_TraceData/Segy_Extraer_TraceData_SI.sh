@@ -91,3 +91,6 @@ gmt end
 # of data samples begins. In SEG-Y rev 0 this entry was
 # intended for deep-water work if data recording did not start at
 # zero time.
+
+# Usar ibm2float de seismic unix para convertir a IEEE 754
+# ibm2float < trace.b > trace_float.txt
