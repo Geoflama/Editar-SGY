@@ -1,0 +1,23 @@
+Datos de Sub-bottom profiler relevados durante la campania m78-3a.
+
+Relevado por el barco Meteor en mayo y junio de 2009.
+
+Procesado por: F.D. Esteban y S. Principi.
+
+Datos originales: Archivos ps3 de ca. 3 Mb.
+
+Procesamiento:
+1. Fusionar todos los ps3 con el software PS32SEGY con el procesamiento ENVELOPE
+2. Procesar el archivo cdpbin con el script Convert_cdpbin_Traces.sh
+3. Separar el SGY con el script Segy_Split_dd_Batch.sh.
+4. Convertir las coordenadas a UTM-20 con el script segy_utm.py
+
+
+
+
+
+
+
+
+
+
