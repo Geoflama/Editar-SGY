@@ -40,13 +40,12 @@ BT0=$(($NS*$Bytes))			        # Cantidad de Bytes de la traza SIN encabezado.
 BT=$(($NS*$Bytes+240))	  	  	    # Cantidad de Bytes de la traza	CON encabezado.
 BTI=$(($BT*($Traza-1)+3600+240)) 	# Numero de byte donde empiezan los datos de la traza a extraer
 
-
 # 2. Extraer datos de la traza
 # -----------------------------------------------------------------------------
 # A. Con dd se extraen los datos.
 # B. Con GMT convierto del formato binario a ascii.
 dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 | gmt convert -bi$BIC > tmp_$out
-dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 > trace.b
+#dd if=$in skip=$BTI iflag=skip_bytes bs=1 count=$BT0 > trace.b
 
 # 3. Calcular TWTT (o profundidad) de la traza
 # -----------------------------------------------------------------------------
@@ -57,7 +56,20 @@ echo SampleRate= $SR
 # Extraer bytes 109-110 (delay recording time)
 DELAY=$(($BT*($Traza-1)+3600+108)) 	# Numero de byte donde esta el SR en el TRACE Header
 B109=$(dd if=$in bs=2 count=1 skip=$DELAY iflag=skip_bytes status=none | gmt convert -bi1h+b)
-echo $B109 
+#echo $B109 
+
+# Obtener maximo absoluto (-EH) de la traza
+MAX=$(gmt info tmp_$out -EH)
+#echo $MAX
+
+Sample_Seafloor=$(grep $MAX tmp_$out --line-number | cut -f1 -d:)
+echo Numero de muestra del maximo $Sample_Seafloor
+
+# Calcular profundidad del seafloor
+# 1. grep: Extraer valor maximo
+# 2. cut: dejar solo el numero de linea
+# 3. Convertir numero de linea a TWTT
+grep $MAX tmp_$out --line-number | cut -f1 -d: | gmt math STDIN $SR MUL 1000 DIV $B109 ADD = Seafloor_TWTT.txt
 
 # Crear un secuencia de numeros con las profundidades.
 ## 1. con seq creo una secuencia de 1 a NS (restandole 1 para que empiece en 0).
@@ -70,22 +82,27 @@ seq 0 $(($NS-1)) | gmt math -Q STDIN $SR MUL 1000 DIV $B109 ADD = tmp_TWTT
 # Juntar archivos
 paste tmp_$out tmp_TWTT > $out
 
+MAX=$(gmt info tmp_$out -EH)
+echo $MAX
+
+grep $MAX $out --line-number
+
 rm tmp_*
 
 # 4. Prueba. Extraer informacion del archivo
 # -----------------------------------------------------------------------------
-echo Datos segun NS: $NS
-echo Datos segun gmt info:
-gmt info $out
+#echo Datos segun NS: $NS
+#echo Datos segun gmt info:
+#gmt info $out
 
 # Hacer grafico con GMT
-gmt begin Trace png
-    gmt plot Trace.txt -JX5/-10 -W0 -Baf -By+l"TWTT (ms)"
-gmt end 
+#gmt begin Trace png
+#    gmt plot Trace.txt -JX5/-10 -W0 -Baf -By+l"TWTT (ms)"
+#gmt end 
 
-gmt begin Trace_Log png
-    gmt plot Trace.txt -JX5l/-10 -W0 -Baf -By+l"TWTT (ms)" -R0.01/1E3/892.1/1159.05
-gmt end 
+#gmt begin Trace_Log png
+#    gmt plot Trace.txt -JX5l/-10 -W0 -Baf -By+l"TWTT (ms)" -R0.01/1E3/892.1/1159.05
+#gmt end 
 
 # Referencias
 # Hagelund (2017) https://seg.org/Portals/0/SEG/News%20and%20Resources/Technical%20Standards/seg_y_rev2_0-mar2017.pdf
