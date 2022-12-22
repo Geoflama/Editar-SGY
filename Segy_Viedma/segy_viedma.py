@@ -1,25 +1,39 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul  1 12:27:27 2019
-
-@author: sebastian principi
+Creado por Sebastian Principi y Federico Esteban
+20-12-2022 
+Copiar las coordenas en el SEGY desde un archivo txt
+Los nuevos SEGY tienen el prefijo "UTM19_"
 """
 
+# Variables a modificar
+# --------------------------------------------------------------
+# Directorio a analizar
+path=r"C:\Users\usuario\Desktop\segy_viedma"
+
+# Numero de canales usados en el relevamiento (monocanal = 1)
+cant_canales=8      
+
+
+# Inicio Script
+# --------------------------------------------------------------
+# 0. Importar librerias
 import pandas
 import segyio
 import os
 import shutil
 
-path=r"C:\Users\usuario\Desktop\segy_viedma"
+# 1. Cambiar a la carpeta path
 os.chdir(path)
 
-cant_canales=8
-
+# 2. Aplicar ciclo
 for file in os.listdir(path):
     
-    #abro todos los .gy de la carpeta
+    # A. Abro todos los .sgy de la carpeta
     if file.endswith(".sgy") and not file.startswith("UTM19_"):
         input_=str(file)
+
+    # B. Crear una copia del archivo a modificar con el prefijo "output_"
         output_="UTM19_"+str(file)
         shutil.copyfile(input_, output_)
         filename=output_
@@ -44,7 +58,3 @@ for file in os.listdir(path):
                     
                 i=i+1
                 n=n+1
-
-
-    
-    
