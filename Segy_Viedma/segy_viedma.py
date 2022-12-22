@@ -14,7 +14,7 @@ Comentarios por Federico Esteban
 # --------------------------------------------------------------
 # Directorio a analizar
 path=r"C:\Users\usuario\Desktop\segy_viedma"
-
+path=r"C:\Users\esteb\OneDrive\Desktop\Viedma_2022\429"
 # Numero de canales usados en el relevamiento (monocanal = 1)
 cant_canales=8      
 
@@ -42,7 +42,8 @@ for file in os.listdir(path):
         filename=output_
         
         # C. Leer archivo csv que los campos estan separados por tabulaciones
-        df = pandas.read_csv(input_[0:-4]+".txt", sep="\t", names=[ 'X', 'Y'])
+        #df = pandas.read_csv(input_[0:-4]+".txt", sep="\t", names=[ 'X', 'Y'])
+        df = pandas.read_csv(input_[0:-4]+".txt", sep="\t", names=[ 'FFID', 'X', 'Y'])
 
         # D. Usar segyio para crear el archivo output, 
         with segyio.open(output_, "r+", ignore_geometry=True) as f:
