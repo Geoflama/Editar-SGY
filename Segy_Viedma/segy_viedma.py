@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Creado por Sebastian Principi y Federico Esteban
-20-12-2022 
+Objetivo: 
 Copiar las coordenas en el SEGY desde un archivo txt
 Los nuevos SEGY tienen el prefijo "UTM19_"
+
+Autores: 
+Codigo por Sebastian Principi
+Comentarios por Federico Esteban
+20-12-2022
 """
 
 # Variables a modificar
@@ -13,7 +17,6 @@ path=r"C:\Users\usuario\Desktop\segy_viedma"
 
 # Numero de canales usados en el relevamiento (monocanal = 1)
 cant_canales=8      
-
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -38,23 +41,33 @@ for file in os.listdir(path):
         shutil.copyfile(input_, output_)
         filename=output_
         
+        # C. Leer archivo csv que los campos estan separados por tabulaciones
         df = pandas.read_csv(input_[0:-4]+".txt", sep="\t", names=[ 'X', 'Y'])
 
+        # D. Usar segyio para crear el archivo output, 
         with segyio.open(output_, "r+", ignore_geometry=True) as f:
 
+            # Definir FFID
             FFID=f.attributes(segyio.TraceField.FieldRecord)[:]
             
+            # Definir numero de registros
             n_field_records=FFID[-1]-FFID[0]
             
+            # Definir n, i
             n=0
             i=0
+            
+            # Ciclo.
             while n<len(f.header):
                 print("i: ",i)
-                for n in range(n,n+8):
+                #for n in range(n,n+8):
+                for n in range(n,n+cant_canales):
                     print("n: ",n)
-  
+
+                    # Copiar los valores X e Y (del datraframe) 
                     f.header[n][segyio.TraceField.SourceX]=int(df.X[i])
                     f.header[n][segyio.TraceField.SourceY]=int(df.Y[i])
-                    
+                
+                # Redefinir n e i sumando 1.
                 i=i+1
                 n=n+1
