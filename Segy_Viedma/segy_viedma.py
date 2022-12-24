@@ -14,10 +14,12 @@ Comentarios por Federico Esteban
 # --------------------------------------------------------------
 # Directorio a analizar
 path=r"C:\Users\usuario\Desktop\segy_viedma"
-path=r"C:\Users\esteb\OneDrive\Desktop\Viedma_2022\429"
+path=r"C:\Users\esteb\OneDrive\Desktop\Viedma_2022\1_Procesados\0_96"
+#path=r"F:\Viedma_2022\1_Procesados\0_96"
 
 # Archivo Navegacion
-NAV="429_utm_ffid.txt"
+#NAV="429_utm_ffid.txt"
+NAV="96_int.txt"
 
 # Numero de canales usados en el relevamiento (monocanal = 1)
 cant_canales=8      
@@ -77,3 +79,7 @@ for file in os.listdir(path):
                 # Redefinir n e i sumando 1.
                 i=i+1
                 n=n+1
+                
+                
+# Navegacion procesada con GMT
+# gmt convert 96.txt > 96_int.txt --FORMAT_FLOAT_OUT=%.0f
