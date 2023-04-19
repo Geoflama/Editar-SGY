@@ -7,9 +7,10 @@
 # Archivo a dividir (entrada)
 in=../0_DatosPrueba/test.sgy
 
+Name=$(basename $in .sgy)
+
 # Cantidad de divisiones del SEGY
-N=2
-#folder=2_Splits_Segy/
+N=3
 
 # 1. Crear archivo con solo el header (primeros 3600 bytes)
 head $in --bytes=3600 > tmp_head
@@ -24,8 +25,8 @@ paste tmp_seq tmp_list2 > tmp_list
 
 while read -a line # IFS=" ";
 do
-cat tmp_head ${line[1]} > ${line[0]}.sgy
+cat tmp_head ${line[1]} > ${Name}_${line[0]}.sgy
 done < tmp_list
 
 # Borrar archivos temporales
-#rm tmp_*
+rm tmp_*
