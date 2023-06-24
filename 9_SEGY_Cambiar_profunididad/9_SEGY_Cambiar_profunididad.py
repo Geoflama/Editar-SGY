@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Creado por Sebastian Principi y Federico Esteban
-06-01-2021 
-Editar los bytes 71 y 89 de los Segy en UTM20S
+Creado por Sebastian Principi
+24-06-2023 
+Cambia la profundidad de un archivo segy
 """
 
 # Variables a modificar
