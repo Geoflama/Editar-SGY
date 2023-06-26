@@ -5,16 +5,6 @@ Creado por Sebastian Principi
 Cambia la profundidad de un archivo segy
 """
 
-# Variables a modificar
-# --------------------------------------------------------------
-# Directorio a analizar
-path=r"D:\Sismicas_kingdom\prueba"
-
-# Sismica a modificar
-file=path+"\\"+"ycc02_110.sgy"
-
-#Nueva longitud
-NewTimeLength=5000
 
 # --------------------------------------------------------------
 
@@ -24,24 +14,32 @@ NewTimeLength=5000
 
 import segyio
 import shutil
+from tkinter import filedialog as fd
 
-# 1. Creo una copia del segy
+#1. Elijo al segy 
+input("Presione una tecla para elejir el segy a modificar")
+file = fd.askopenfilename()
+
+#2.Nueva longitud
+print("Nueva profundidad en milisegundos: ")
+NewTimeLength=int(input())
+
+# 3. Creo una copia del segy
 file_copy=str(file)[:-4]+'_copy.sgy'
 
 shutil.copyfile(file, file_copy)
         
-# 2. Abrir el archivo como read write
+# 4. Abrir el archivo como read write
 with segyio.open(file_copy, "r+", ignore_geometry=True) as f:
     
     #A. Determino la cantidad de samples
     Samples=f.bin[segyio.BinField.Samples]
     
     #B. Calculo el nuevo sample interval
-    New_SampleInterval = int(NewTimeLength*1000 / (Samples))
+    New_SampleInterval = int(NewTimeLength*1000 / (Samples-1))
     
     #C. Asigno el nuevo sample interval al bin header
     f.bin[segyio.BinField.Interval]=New_SampleInterval
-    
     
     # D. Loop para asignar el nuevo sample interval al trace header           
     for i in range(0,len(f.header)):
