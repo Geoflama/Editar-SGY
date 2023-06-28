@@ -5,7 +5,6 @@ Creado por Sebastian Principi
 Cambia la profundidad de un archivo segy
 """
 
-
 # --------------------------------------------------------------
 
 # Inicio Script
