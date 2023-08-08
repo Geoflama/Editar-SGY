@@ -2,9 +2,7 @@
 """
 Creado por Sebastian Principi y Federico Esteban
 28-09-2022 
-Extrae la cantidad de datos y sample interval de todas las trazas
-en el formato original y con los datos del FFID (byte 9 del trace header).
-Bytes xx y xx estan en SEGUNDOS DE ARCO.
+Crea una tabla con datos de Traza, cantidad de datos y sample interval.
 GENERA UN CSV POR CADA SEGY
 """
 
