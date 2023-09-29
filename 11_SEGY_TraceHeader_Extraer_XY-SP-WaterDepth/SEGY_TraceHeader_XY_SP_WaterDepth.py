@@ -14,6 +14,7 @@ Particularidades:
 # Directorio a analizar
 #path=r"C:\Users\usuario\Desktop\Nueva carpeta"
 path=r"/home/federico/Github/Geoflama/SEGY/0_DatosPrueba"
+path=r"/media/federico/Elements/YCM-/S2D_SGY/YCM-40_FINAL-MIGRATION_ZERO-PHASE/"
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -39,13 +40,16 @@ for file in os.listdir(path):
             sourceX = f.attributes(segyio.TraceField.SourceX)[:]/100
             sourceY = f.attributes(segyio.TraceField.SourceY)[:]/100
 
-            # C2. Leer Numero SP (byte 25-26) y Water Depth at Source (bytes 61-64)
-            SP = f.attributes(25)[:]
+            # C2. Leer Numero SP (byte 17-20) y Water Depth at Source (bytes 61-64)
+            SP = f.attributes(17)[:]
             WDS = f.attributes(61)[:]*-1
         
         # D. Convierto las listas de valores a un dataframe
         df = pd.DataFrame(list(zip(sourceX, sourceY, SP, WDS)),columns =['#X', 'Y', "SP", "WDS"])
         
+        # E. Imprimir en la terminal
+        #print(SP)
+                
         # F. Guardo los datos como archivos de texto (uno por cada segy) en un CCSV
         df.to_csv(input_+".csv", index=False,sep=",")
 
