@@ -51,7 +51,7 @@ for file in os.listdir(path):
         #print(SP)
                 
         # F. Guardo los datos como archivos de texto (uno por cada segy) en un CCSV
-        df.to_csv(input_+".csv", index=False,sep=",")
+        df.to_csv(input_+".txt", index=False,sep=",")
 
     # Referencias
     """
