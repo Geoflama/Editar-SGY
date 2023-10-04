@@ -15,8 +15,7 @@ Creado por Federico Esteban.
 # Directorio a analizar
 #path=r"C:\Users\usuario\Desktop\Nueva carpeta"
 path=r"//media/federico/Elements/GEOFLAMA_BaseDatos/0_Datos/SEGY/YCM-/"
-path=r"//media/federico/Elements/GEOFLAMA_BaseDatos/0_Datos/SEGY/YCM-/"
-path=r"/media/federico/Elements/GEOFLAMA_BaseDatos/0_Datos/SEGY/YCM-40_FINAL-MIGRATION_ZERO-PHASE/"
+#path=r"/media/federico/Elements/GEOFLAMA_BaseDatos/0_Datos/SEGY/YCM-40_FINAL-MIGRATION_ZERO-PHASE/"
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -34,7 +33,7 @@ for file in os.listdir(path):
     # A. Abir todos los .sgy de la carpeta.
     if file.endswith(".sgy"):
         input_=str(file)
-        
+
         # B. Abrir el archivo como read write
         with segyio.open(input_, "r+", ignore_geometry=True) as f:
 
@@ -51,9 +50,13 @@ for file in os.listdir(path):
         
         # E. Imprimir en la terminal
         #print(SP)
+        nombre=input_.removesuffix('.sgy')               
+        print(nombre)
                 
         # F. Guardo los datos como archivos de texto (uno por cada segy) en un CCSV
-        df.to_csv(input_+".txt", index=False,sep=",")
+        nombre=input_.removesuffix('.sgy')               
+        df.to_csv(nombre+".txt", index=False,sep=",")
+        
 
     # Referencias
     """
