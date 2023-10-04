@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
 """
-Creado por Sebastian Principi y Federico Esteban
-29-09-2023
-Extrae datos de los trace headers
+Extraer datos de los trace headers
 Particularidades:
-1. Lee los bytes del trace header que dice tipo de coordenadas (bytes 89-90) y escalar (71-72).
-2. Genera tabla con datos de X, Y, SP, Water Depth Source
-3. Genera una unica tabla
+1. Lee todos los archivos de la carpeta definida en path
+2. Lee las coordenas X, Y, SP, Water Depth Source.
+3. Genera una tabla para cada archivo
+Creado por Federico Esteban.
+29-09-2023
+
 """
 
 # Variables a modificar
 # --------------------------------------------------------------
 # Directorio a analizar
 #path=r"C:\Users\usuario\Desktop\Nueva carpeta"
-path=r"/home/federico/Github/Geoflama/SEGY/0_DatosPrueba"
-path=r"/media/federico/Elements/YCM-/S2D_SGY/YCM-40_FINAL-MIGRATION_ZERO-PHASE/"
+path=r"//media/federico/Elements/GEOFLAMA_BaseDatos/0_Datos/SEGY/YCM-/"
+path=r"//media/federico/Elements/GEOFLAMA_BaseDatos/0_Datos/SEGY/YCM-/"
+path=r"/media/federico/Elements/GEOFLAMA_BaseDatos/0_Datos/SEGY/YCM-40_FINAL-MIGRATION_ZERO-PHASE/"
 
 # Inicio Script
 # --------------------------------------------------------------
