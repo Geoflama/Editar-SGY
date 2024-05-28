@@ -13,10 +13,12 @@ Creado por Federico Esteban.
 # Variables a modificar
 # --------------------------------------------------------------
 # Directorio a analizar
-#path=r"C:\Users\usuario\Desktop\Nueva carpeta"
-path=r"//media/federico/Elements/GEOFLAMA_BaseDatos/0_Datos/SEGY/YCM-/"
-#path=r"/media/federico/Elements/GEOFLAMA_BaseDatos/0_Datos/SEGY/YCM-40_FINAL-MIGRATION_ZERO-PHASE/"
-path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Ara-Argo-Aries_1994/SGY/"
+#path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Ara-Argo-Aries_1994/SGY/"
+path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/CAM1-CAM3_2003/SGY/"
+#path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Carina_1996/SGY/"
+#path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Hidra-Kaus_1995/SGY/"
+#path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Magallanes_1993/SGY/"
+#path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Vega-Pleyade_1998/SGY/"
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -35,26 +37,30 @@ for file in os.listdir(path):
     if file.endswith(".sgy"):
         input_=str(file)
 
-        # B. Abrir el archivo como read write
+        # B. Imprimir en la terminal el nombre del archivo que se esta procesando
+        nombre=input_.removesuffix('.sgy')               
+        print(nombre)
+        
+        # C. Abrir el archivo como read write
         with segyio.open(input_, "r+", ignore_geometry=True) as f:
 
             # C1. Leer los header de X e Y.
-            sourceX = f.attributes(segyio.TraceField.SourceX)[:]/100
-            sourceY = f.attributes(segyio.TraceField.SourceY)[:]/100
+            sourceX = f.attributes(segyio.TraceField.SourceX)[:]
+            sourceY = f.attributes(segyio.TraceField.SourceY)[:]
 
             # C2. Leer Numero SP (byte 17-20) y Water Depth at Source (bytes 61-64)
-            SP = f.attributes(17)[:]
-            WDS = f.attributes(61)[:]*-1
+            SCALE = f.attributes(71)[:]
+            NS = f.attributes(115)[:]
+            SI = f.attributes(117)[:]
+            XCDP = f.attributes(181)[:]
+            YCDP = f.attributes(185)[:]
+            INLINE = f.attributes(189)[:]
+            XLINE = f.attributes(193)[:]
         
         # D. Convierto las listas de valores a un dataframe
-        df = pd.DataFrame(list(zip(sourceX, sourceY, SP, WDS)),columns =['#X', 'Y', "SP", "WDS"])
+        df = pd.DataFrame(list(zip(sourceX, sourceY, SCALE, NS, SI, XCDP, YCDP, INLINE, XLINE)),columns =['#X', 'Y', "SCALE", "NS", "SI", "XCDP", "YCDP", "Inline", "Xline"])
         
-        # E. Imprimir en la terminal
-        #print(SP)
-        nombre=input_.removesuffix('.sgy')               
-        print(nombre)
-                
-        # F. Guardo los datos como archivos de texto (uno por cada segy) en un CCSV
+        # E. Guardo los datos como archivos de texto (uno por cada segy) en un CCSV
         nombre=input_.removesuffix('.sgy')               
         df.to_csv(nombre+".txt", index=False,sep=",")
         
