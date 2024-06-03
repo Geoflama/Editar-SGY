@@ -13,8 +13,8 @@ Creado por Federico Esteban.
 # Variables a modificar
 # --------------------------------------------------------------
 # Directorio a analizar
-#path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Ara-Argo-Aries_1994/SGY/"
-path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/CAM1-CAM3_2003/SGY/"
+path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Ara-Argo-Aries_1994/SGY/"
+#path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/CAM1-CAM3_2003/SGY/"
 #path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Carina_1996/SGY/"
 #path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Hidra-Kaus_1995/SGY/"
 #path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Magallanes_1993/SGY/"

@@ -12,8 +12,8 @@ import glob
 
 path=r"D:"
 path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Carina_1996/SGY/"
+path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Ara-Argo-Aries_1994/SGY/"
 os.chdir(path)
-
 
 #Contador para ver avance del script
 number_of_segy = len(glob.glob1(path,"*.sgy"))
@@ -38,7 +38,6 @@ for file in os.listdir(path):
         #Intento abrir el archivo con segio
         try:
             with segyio.open(input_, "r+", ignore_geometry=True) as f:
-                
                 
                 #Guardo las coordenadas X e Y
                 CDPY = f.attributes(segyio.TraceField.CDP_Y)[:]
