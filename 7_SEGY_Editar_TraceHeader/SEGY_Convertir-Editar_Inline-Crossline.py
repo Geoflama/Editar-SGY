@@ -11,6 +11,7 @@ Los nuevos SEGY tienen el sufijo "_UTM20"
 # Directorio a analizar
 path=r"E:\1.Meteor2009\M78a\M78-3a PS03\segy_unidos\Nueva carpeta"
 path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Carina_1996/"
+path=r"/media/thor/Elements/SISMICA_3D/0_Datos_Ministerio/BDIH/Carina_1996/SGY_BackUp/"
 #path=r"/home/thor/Github/Geoflama/Editar-SGY/0_DatosPrueba/"
 
 # Inicio Script
@@ -19,6 +20,7 @@ path=r"/media/thor/Datos/SISMICA_3D/0_Datos_Ministerio/BDIH/Carina_1996/"
 import os
 import segyio
 import shutil
+import pandas as pd
 
 # 1. Cambiar a la carpeta path
 os.chdir(path)
@@ -34,13 +36,29 @@ for file in os.listdir(path):
         with segyio.open(input_, "r+", ignore_geometry=True) as f:
             
             # D. Leer los header de X e Y y convertirlo de segundos de arco a grados.
-            #sourceX = f.attributes(185)[:]
-            #sourceY = f.attributes(189)[:]
+            sourceX = f.attributes(185)[:]
+            sourceY = f.attributes(189)[:]
+            CDP = f.attributes(21)[:]
             
+#            print(CDP)
+
+        # D. Convierto las listas de valores a un dataframe
+#        df = pd.DataFrame(list(zip(sourceX, sourceY, SCALE, NS, SI, XCDP, YCDP, INLINE, XLINE)),columns =['#X', 'Y', "SCALE", "NS", "SI", "XCDP", "YCDP", "Inline", "Xline"])
+        df = pd.DataFrame(list(zip(CDP, sourceX, sourceY)),columns =['#''CDP', "SourceX", "SourceY"])
+
+        
+        # E. Guardo los datos como archivos de texto (uno por cada segy) en un CCSV
+        nombre=input_.removesuffix('.sgy')               
+        df.to_csv(nombre+".txt", index=False,sep=",")
+        
+
+'''
             # C. Loop para leer los datos
             for i in range(0,len(f.header)):
-          
+                
+                # C0. Texto de la traza que se esta editando
                 print('Editando trace header',i)
+                
                 # C1. Leer datos de CDP
                 CDP = f.attributes(21)[i]
                                
@@ -54,5 +72,6 @@ for file in os.listdir(path):
                 # D. Escribir en los bytes 181 a 193
                 # J1. Byte 181. CDP-X
                 f.header[i][segyio.TraceField.CDP_X]=int(inline)
-                # J2. Byte 1893. CDP-Y
+                # J2. Byte 193. CDP-Y
                 f.header[i][segyio.TraceField.CROSSLINE_3D]=int(xline)
+'''
