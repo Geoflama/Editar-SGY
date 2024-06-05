@@ -35,6 +35,8 @@ for file in os.listdir(path):
             
             # D. Leer los header de X e Y y convertirlo de segundos de arco a grados.
             CDP = f.attributes(21)[:]
-            sourceX = f.attributes(223)[:]
-            sourceY = f.attributes(225)[:]
+            sourceX = f.attributes(181)[:]
+            sourceY = f.attributes(193)[:]
+            
+            print(CDP,sourceX,sourceY)
             
