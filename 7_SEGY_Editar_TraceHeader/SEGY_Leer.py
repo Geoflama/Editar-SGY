@@ -23,7 +23,7 @@ import shutil
 # 1. Cambiar a la carpeta path
 os.chdir(path)
 
-# 2. Aplicar ciclo
+# 2. Aplicar ciclo para leer cada archivo a la vez en el directorio a analizar
 for file in os.listdir(path):
 
     # A. Abrir todos los *.sgy de la carpeta
