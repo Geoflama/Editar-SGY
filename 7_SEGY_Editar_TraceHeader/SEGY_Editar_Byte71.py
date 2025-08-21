@@ -8,8 +8,8 @@ Editar los bytes 71 y 89 de los Segy en UTM20S
 # Variables a modificar
 # --------------------------------------------------------------
 # Directorio a analizar
-#path=r"E:\Nueva carpeta"
-path=r"D:\M783a\Prueba"
+path=r"/home/esteban82/Dropbox/Facu/Patagonia_2025/2_Sismicas_con_Coordenadas/"
+
 
 # Inicio Script
 # --------------------------------------------------------------
@@ -33,8 +33,8 @@ for file in os.listdir(path):
             # D. Loop para convertir datos de navegacion            
             for i in range(0,len(f.header)):
                 
-                # E. Escribir 1 (: coordendas planas) en Byte 89.
-                f.header[i][segyio.TraceField.CoordinateUnits]=1
+                # E. Escribir (: coordendas planas) en Byte 89.
+                #f.header[i][segyio.TraceField.CoordinateUnits]=1
                 
-                # F. Escribir 1 en Byte 71 (sin factor).
-                f.header[i][segyio.TraceField.SourceGroupScalar]=1
+                # F. Escribir en Byte 71.
+                f.header[i][segyio.TraceField.SourceGroupScalar]=-100
